@@ -1,3 +1,5 @@
+![PixelPomodoro Preview](preview.png)
+
 # Pixel Pomodoro
 
 Пиксельный помодоро-таймер на чистом tkinter. Фиолетово-розовая тема, маскот-помидорка,
