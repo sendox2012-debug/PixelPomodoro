@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Pixel Pomodoro
+GenericName=Pomodoro Timer
+Comment=Pixel-art pomodoro timer
+Exec=pixel-pomodoro
+Icon=pixel-pomodoro
+Terminal=false
+Categories=Utility;Clock;
+Keywords=pomodoro;timer;focus;productivity;
+StartupWMClass=PixelPomodoro
