@@ -22,8 +22,8 @@ cd PixelPomodoro
 ./install.sh
 ```
 
-После этого ищи **Pixel Pomodoro** в меню приложений или запусти `pixel-pomodoro`.
-Удалить: `./install.sh --uninstall`.
+После этого ищи **Pixel Pomodoro** в меню приложений или запусти `pixel-pomodoro`
 
-Системным пакетом (pacman будет знать о нём): `makepkg -si`.
+# Программа работает не только в Arch а на всех дистрибуивах сделаных поверх арч линукса по типу: Cachyos, GarudaOs
+
 
