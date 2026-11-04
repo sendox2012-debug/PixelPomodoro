@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-"""Pixel Pomodoro: pixel-art pomodoro timer in pure tkinter.
-
-Two modes:
-- DESKTOP: normal window with title bar, icon, standard behavior
-- OVERLAY: borderless, always-on-top widget, draggable, visible over fullscreen
-"""
+# пасхалка нахуй 
 import argparse
 import json
 import math
@@ -42,12 +36,12 @@ LANGS = {
         "purple": "PURPLE", "green": "GREEN", "ocean": "OCEAN", "sunset": "SUNSET"
     },
     "ru": {
-        "focus": "ФОКУС", "short": "КОРОТ", "long": "ДЛИНН",
-        "focus_time": "РАБОТА", "short_break": "ПЕРЕРЫВ", "long_break": "ДЛИН ПЕР",
-        "start": "СТАРТ", "pause": "ПАУЗА", "reset": "СБРОС", "skip": "ПРОПУСК",
+        "focus": "ФОКУС", "short": "ОТДЫХ", "long": "ДЛИНН",
+        "focus_time": "ФОКУС", "short_break": "ОТДЫХ", "long_break": "ДЛИНН",
+        "start": "СТАРТ", "pause": "ПАУЗА", "reset": "СБРОС", "skip": "ПРОП",
         "great_job": "ОТЛИЧНО!", "ready": "ГОТОВ?",
-        "focus_done": "Фокус завершен!", "time_for_break": "Время %s перерыва.",
-        "break_over": "Перерыв окончен", "ready_next": "Готовы к следующему?",
+        "focus_done": "Фокус завершен!", "time_for_break": "Время для %s отдыха.",
+        "break_over": "Отдых окончен", "ready_next": "Готовы к следующему?",
         "zzz": "ZZZ ОТДЫХ", "paused": "ПАУЗА", "ready_break": "ПЕРЕРЫВ",
         "settings": "НАСТРОЙКИ", "language": "ЯЗЫК", "theme": "ТЕМА",
         "mode": "РЕЖИМ", "desktop": "ОКНО", "overlay": "ОВЕРЛЕЙ",
@@ -131,25 +125,38 @@ _F = {
     "U": "#...#|#...#|#...#|#...#|#...#|#...#|.###.", "V": "#...#|#...#|#...#|#...#|#...#|.#.#.|..#..",
     "W": "#...#|#...#|#...#|#.#.#|#.#.#|##.##|#...#", "X": "#...#|#...#|.#.#.|..#..|.#.#.|#...#|#...#",
     "Y": "#...#|#...#|.#.#.|..#..|..#..|..#..|..#..", "Z": "#####|....#|...#.|..#..|.#...|#....|#####",
-    
-    # Выровненная кириллица
-    "А": ".###.|#...#|#...#|#####|#...#|#...#|#...#", "Б": "#####|#....|#....|####.|#...#|#...#|####.",
-    "В": "####.|#...#|#...#|####.|#...#|#...#|####.", "Г": "#####|#....|#....|#....|#....|#....|#....",
-    "Д": "..##.|.#..#|#...#|#...#|#...#|#...#|#####", "Е": "#####|#....|#....|####.|#....|#....|#####",
-    "Ж": "#...#|#.#.#|##.##|.###.|##.##|#.#.#|#...#", "З": ".###.|....#|....#|.###.|....#|#...#|.###.",
-    "И": "#...#|#...#|#..#.|#.#..|#....|#...#|#...#", "Й": ".#.#.|.#.#.|#...#|#..#.|#.#..|#....|#...#",
-    "К": "#...#|#..#.|#.#..|##...|#.#..|#..#.|#...#", "Л": "..##.|.#..#|#...#|#...#|#...#|#...#|#...#",
-    "М": "#...#|##.##|#.#.#|#...#|#...#|#...#|#...#", "Н": "#...#|#...#|#...#|#####|#...#|#...#|#...#",
-    "О": ".###.|#...#|#...#|#...#|#...#|#...#|.###.", "П": "#####|#...#|#...#|#...#|#...#|#...#|#...#",
-    "Р": "####.|#...#|#...#|####.|#....|#....|#....", "С": ".####|#....|#....|#....|#....|#....|.####",
-    "Т": "#####|..#..|..#..|..#..|..#..|..#..|..#..", "У": "#...#|#...#|.###.|..#..|..#..|..#..|.##..",
-    "Ф": "..#..|##.##|#####|.#.#.|#####|##.##|..#..", "Х": "#...#|#...#|#.#..|.#...|#.#..|#...#|#...#",
-    "Ц": "#.#..|#.#..|#.#..|#.#..|#.#..|#.###|...##", "Ч": "#...#|#...#|#...#|.####|....#|....#|....#",
-    "Ш": "#...#|#...#|#...#|#...#|#.#.#|##.##|#...#", "Щ": "#.#.#|#.#.#|#.#.#|#.#.#|#####|...##|...##",
-    "Ъ": "##...|.#...|.#...|.####|.#..#|.#..#|.####", "Ы": "#.#..|#.#..|#.#..|.####|.#..#|.#..#|.####",
-    "Ь": "#....|#....|#....|####.|#...#|#...#|####.", "Э": ".###.|#...#|...#.|.##..|...#.|#...#|.###.",
-    "Ю": "#.###|#.#.#|#.#.#|#.###|#.#.#|#.#.#|#.###", "Я": "..###|.#..#|.#.#.|.###.|.#...|.#...|#....",
-    
+    "А": ".###.|#...#|#...#|#####|#...#|#...#|#...#",
+    "Б": "####.|#...#|#...#|####.|#...#|#...#|####.",
+    "В": "####.|#...#|#...#|####.|#...#|#...#|####.",
+    "Г": "#####|#....|#....|#....|#....|#....|#....",
+    "Д": ".###.|#...#|#...#|#...#|#...#|##.##|#...#",
+    "Е": "#####|#....|#....|####.|#....|#....|#####",
+    "Ж": "#...#|#.#.#|##.##|#.#.#|#.#.#|#...#|#...#",
+    "З": ".###.|#...#|....#|.###.|....#|#...#|.###.",
+    "И": "#...#|##..#|#.#.#|#..##|#...#|#...#|#...#",
+    "Й": ".#.#.|.....|#...#|##..#|#.#.#|#..##|#...#",
+    "К": "#...#|#..#.|#.#..|##...|#.#..|#..#.|#...#",
+    "Л": "..##.|.#.#.|#..#.|#..#.|#..#.|#..#.|#...#",
+    "М": "#...#|##.##|#.#.#|#...#|#...#|#...#|#...#",
+    "Н": "#...#|#...#|#...#|#####|#...#|#...#|#...#",
+    "О": ".###.|#...#|#...#|#...#|#...#|#...#|.###.",
+    "П": "#####|#...#|#...#|#...#|#...#|#...#|#...#",
+    "Р": "####.|#...#|#...#|####.|#....|#....|#....",
+    "С": ".###.|#...#|#....|#....|#....|#...#|.###.",
+    "Т": "#####|..#..|..#..|..#..|..#..|..#..|..#..",
+    "У": "#...#|#...#|#...#|.####|....#|#...#|.###.",
+    "Ф": ".###.|#.#.#|#.#.#|#.#.#|#.#.#|#.#.#|.###.",
+    "Х": "#...#|#...#|.#.#.|..#..|.#.#.|#...#|#...#",
+    "Ц": "#...#|#...#|#...#|#...#|#...#|#..#.|.###.",
+    "Ч": "#...#|#...#|#...#|.####|....#|....#|....#",
+    "Ш": "#...#|#...#|#...#|#.#.#|##.##|#...#|#...#",
+    "Щ": "#...#|#...#|#...#|#.#.#|##.##|#...#|#..##",
+    "Ъ": "##..#|#.#.#|#.#.#|##..#|....#|....#|....#",
+    "Ы": "#...#|#...#|#...#|####.|#...#|#...#|####.",
+    "Ь": "#....|#....|#....|####.|#...#|#...#|####.",
+    "Э": "#####|....#|....#|.###.|....#|....#|#####",
+    "Ю": "#..##|#.#.#|##..#|#...#|##..#|#.#.#|#..##",
+    "Я": ".###.|#...#|#...#|.###.|..#..|.#...|#...#",
     ":": ".....|..#..|..#..|.....|..#..|..#..|.....", "-": ".....|.....|.....|#####|.....|.....|.....",
     "+": ".....|..#..|..#..|#####|..#..|..#..|.....", "!": "..#..|..#..|..#..|..#..|..#..|.....|..#..",
     "?": ".###.|#...#|....#|...#.|..#..|.....|..#..", ".": ".....|.....|.....|.....|.....|.....|..#..",
@@ -237,7 +244,7 @@ class PixelPomodoro:
         self.mins = {"focus": 25, "short": 5, "long": 15}
         self.lang = "ru"
         self.theme_name = "purple"
-        self.app_mode = "desktop"  # "desktop" or "overlay"
+        self.app_mode = "desktop"
         self.minimized = False
         self.view = "main"
         
@@ -283,7 +290,6 @@ class PixelPomodoro:
         self._apply_window_mode()
 
     def _apply_window_mode(self):
-        """Apply Desktop or Overlay window properties."""
         r = self.root
         if self.app_mode == "overlay":
             r.overrideredirect(True)
@@ -400,6 +406,14 @@ class PixelPomodoro:
         self.remaining = self.total()
         self.save_config()
 
+    def adjust_time(self, mode, delta):
+        limits = {"focus": 90, "short": 30, "long": 60}
+        self.mins[mode] = max(1, min(limits[mode], self.mins[mode] + delta))
+        if self.mode == mode and not self.running:
+            self.remaining = self.total()
+        self.save_config()
+        self.sig = None  # Force UI update
+
     def complete(self):
         finished = self.mode
         nxt = self.next_after(finished, counted=True)
@@ -510,10 +524,8 @@ class PixelPomodoro:
         mm, ss = secs // 60, secs % 60
         digits = "%02d:%02d" % (mm, ss)
         
-        # Рамка
         self.panel(0, 0, W_MINI, H_MINI, self.THEMES_MODES[self.mode]["a"], self.PANEL)
         
-  
         text_height = 21
         y_pos = (H_MINI - text_height) // 2  
         
@@ -524,23 +536,46 @@ class PixelPomodoro:
         self.rect((W_MINI - indicator_width) // 2, H_MINI - 8, indicator_width, 3, col, "ui")
 
     def render_settings(self):
-        self.panel(6, 6, 108, 152, self.THEMES_MODES[self.mode]["a"], self.PANEL)
+        self.panel(6, 6, 108, 148, self.THEMES_MODES[self.mode]["a"], self.PANEL)
         self.text(0, 10, self.t("settings"), 2, self.TEXT, cx=60, shadow=self.DARK)
         
-        # Language section
-        self.text(0, 28, self.t("language"), 1, self.MUTED, cx=60)
-        self.button("lang:en", 30, 38, 24, 12, "EN", self.PANEL_IN if self.lang != "en" else self.THEMES_MODES["focus"]["a"], self.TEXT if self.lang == "en" else self.MUTED)
-        self.button("lang:ru", 66, 38, 24, 12, "RU", self.PANEL_IN if self.lang != "ru" else self.THEMES_MODES["focus"]["a"], self.TEXT if self.lang == "ru" else self.MUTED)
+        # Time adjustments
+        time_title = "ВРЕМЯ (МИН)" if self.lang == "ru" else "TIME (MIN)"
+        self.text(0, 26, time_title, 1, self.MUTED, cx=60)
+        
+        modes_info = [
+            ("focus", self.t("focus")[:3], 36),
+            ("short", self.t("short")[:3], 52),
+            ("long", self.t("long")[:3], 68)
+        ]
+        
+        for mode, label, y_pos in modes_info:
+            mins = self.mins[mode]
+            self.text(10, y_pos + 2, label, 1, self.TEXT)
+            self.button(f"time_minus:{mode}", 34, y_pos, 12, 12, "-", self.PANEL_IN, self.TEXT)
+            
+            time_str = f"{mins:02d}"
+            self.text(0, y_pos + 2, time_str, 1, self.TEXT, cx=60)
+            
+            self.button(f"time_plus:{mode}", 74, y_pos, 12, 12, "+", self.PANEL_IN, self.TEXT)
 
-        # Theme section (vertical column)
-        self.text(0, 58, self.t("theme"), 1, self.MUTED, cx=60)
-        themes = [("purple", self.t("purple")), ("green", self.t("green")), ("ocean", self.t("ocean")), ("sunset", self.t("sunset"))]
+        # Language
+        self.text(0, 88, self.t("language"), 1, self.MUTED, cx=60)
+        self.button("lang:en", 24, 98, 32, 12, "EN", self.PANEL_IN if self.lang != "en" else self.THEMES_MODES["focus"]["a"], self.TEXT if self.lang == "en" else self.MUTED)
+        self.button("lang:ru", 64, 98, 32, 12, "RU", self.PANEL_IN if self.lang != "ru" else self.THEMES_MODES["focus"]["a"], self.TEXT if self.lang == "ru" else self.MUTED)
+
+        # Theme (compact)
+        self.text(0, 116, self.t("theme"), 1, self.MUTED, cx=60)
+        themes = [("purple", "ФИ" if self.lang == "ru" else "PU"), 
+                  ("green", "ЗЕ" if self.lang == "ru" else "GR"), 
+                  ("ocean", "ОК" if self.lang == "ru" else "OC"), 
+                  ("sunset", "ЗА" if self.lang == "ru" else "SU")]
         for i, (tid, tname) in enumerate(themes):
-            y_pos = 68 + i * 14
-            self.button("theme:" + tid, 20, y_pos, 80, 12, tname, self.PANEL_IN if self.theme_name != tid else GLOBAL_THEMES[tid]["modes"]["focus"]["a"], self.TEXT if self.theme_name == tid else self.MUTED)
+            x_pos = 14 + i * 24
+            self.button("theme:" + tid, x_pos, 126, 22, 12, tname, self.PANEL_IN if self.theme_name != tid else GLOBAL_THEMES[tid]["modes"]["focus"]["a"], self.TEXT if self.theme_name == tid else self.MUTED)
 
         # Back button
-        self.button("back", 42, 150, 36, 12, self.t("back"), self.PANEL_IN, self.TEXT)
+        self.button("back", 42, 140, 36, 12, self.t("back"), self.PANEL_IN, self.TEXT)
 
     def render_main(self, now, secs):
         th = self.THEMES_MODES[self.mode]
@@ -561,8 +596,6 @@ class PixelPomodoro:
         self.panel(6, 34, 108, 66, a, self.PANEL)
         self.text(0, 39, self.get_theme_mode_name(self.mode), 1, b, cx=60)
         can = not self.running
-        self.button("minus", 9, 38, 9, 9, "-", self.PANEL_IN if can else self.PANEL, self.TEXT if can else self.EMPTY, enabled=can)
-        self.button("plus", 102, 38, 9, 9, "+", self.PANEL_IN if can else self.PANEL, self.TEXT if can else self.EMPTY, enabled=can)
 
         mm, ss = secs // 60, secs % 60
         digits = "%02d:%02d" % (mm, ss)
@@ -593,7 +626,6 @@ class PixelPomodoro:
             self.sprite(HEART, pal, hx + i * 12, 108, 1, "ui")
             if i < self.cycle: self.rect(hx + i * 12 + 1, 108, 1, 1, lighten(col, 0.6), "ui")
 
-        # 2x2 button grid
         self.button("toggle", 8, 122, 46, 16, self.t("pause") if self.running else self.t("start"), b if not self.running else a, "#2a0f45" if not self.running else self.TEXT)
         self.button("reset", 66, 122, 46, 16, self.t("reset"), self.PANEL_IN, self.TEXT)
         self.button("mini", 8, 142, 46, 16, self.t("mini"), self.PANEL_IN, self.TEXT)
@@ -617,6 +649,10 @@ class PixelPomodoro:
         self.cv.delete("stars")
         self.cv.delete("fx")
         if self.minimized: return
+        
+        # Скрываем маскота и анимации, если открыты настройки
+        if self.view == "settings":
+            return
 
         for (sx, sy, ph, col) in self.stars:
             v = math.sin(now * 2.2 + ph)
@@ -637,18 +673,16 @@ class PixelPomodoro:
         blink = (now * 1000) % 3600 < 150
         face = "happy" if celebrating else ("sleep" if sleeping or blink else "awake")
 
-        # Скрываем маскота и анимацию сна в меню настроек, чтобы он не перекрывал кнопки
-        if self.view != "settings":
-            my = 102 + bob + jump
-            sw = 18 + jump
-            self.rect(60 - sw // 2, 131, sw, 1, self.DARK, "dyn")
-            self.rect(60 - (sw - 4) // 2, 132, sw - 4, 1, self.DARK, "dyn")
-            self.sprite(mascot_rows(face), MASCOT_PAL, 60 - 14, my, 2, "dyn")
+        my = 102 + bob + jump
+        sw = 18 + jump
+        self.rect(60 - sw // 2, 131, sw, 1, self.DARK, "dyn")
+        self.rect(60 - (sw - 4) // 2, 132, sw - 4, 1, self.DARK, "dyn")
+        self.sprite(mascot_rows(face), MASCOT_PAL, 60 - 14, my, 2, "dyn")
 
-            if sleeping:
-                for k in range(2):
-                    ph = (now * 0.9 + k * 0.5) % 1.0
-                    self.text(80 + k * 7, 108 - int(ph * 9), "Z", 1, mix("#c9a0ff", self.BG, ph * 0.7), tag="dyn")
+        if sleeping:
+            for k in range(2):
+                ph = (now * 0.9 + k * 0.5) % 1.0
+                self.text(80 + k * 7, 108 - int(ph * 9), "Z", 1, mix("#c9a0ff", self.BG, ph * 0.7), tag="dyn")
 
         alive = []
         for p in self.confetti:
@@ -680,7 +714,6 @@ class PixelPomodoro:
         if self.minimized:
             self.toggle_minimize()
             return
-        # In overlay mode: drag by top 20 logical pixels
         if self.app_mode == "overlay" and e.y < 20 * S and self.view == "main":
             self.drag_start = (e.x_root, e.y_root)
         else:
@@ -716,6 +749,10 @@ class PixelPomodoro:
             self.theme_name = bid[6:]
             self.apply_theme()
             self.save_config()
+        elif bid.startswith("time_minus:"):
+            self.adjust_time(bid[11:], -1)
+        elif bid.startswith("time_plus:"):
+            self.adjust_time(bid[10:], 1)
         elif bid.startswith("mode:"):
             self.app_mode = bid[5:]
             self._apply_window_mode()
